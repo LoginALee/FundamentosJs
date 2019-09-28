@@ -25,7 +25,10 @@ function imprimirNombreYEdad(persona){
 };
 
 function cumpleanos(persona){
-    persona.edad +=1;
+    return{
+        ...persona,
+        edad: persona.edad +1
+    }
 }
 
 imprimirNombreEnMayusculas(sacha);
