@@ -5,11 +5,11 @@ function Persona(nombre, apellido, altura){
 }
 
 
-Persona.prototype.soyAlto = () =>{
-    return this.altura > 1.8;
+Persona.prototype.soyAlto = function(){
+    return this.altura >= 1.8;
 };
 
-Persona.prototype.saludar = () =>{
+Persona.prototype.saludar = function(){
     console.log(`Hola, me llamo ${this.nombre} ${this.apellido}`);
 };
 
