@@ -5,10 +5,10 @@ class Persona {
         this.altura = altura;
     }
 
-    saludar(){
+    saludar(fn){
         console.log(`Hola, me llamo ${this.nombre} ${this.apellido}`);
         if(fn){
-            fn(nombre, apellido, false);
+            fn(this.nombre, this.apellido, false);
         }
     }
 
@@ -25,7 +25,7 @@ class Desarrollador extends Persona{
     saludar(fn){
         console.log(`Hola, me llamo ${this.nombre} ${this.apellido} y soy desarrollador`);
         if(fn){
-            fn(nombre, apellido, true);
+            fn(this.nombre, this.apellido, true);
         }
     }
 }
