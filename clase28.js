@@ -3,10 +3,10 @@ const PEOPLE_URL = 'people/:id';
 const LUKE_URL = `${API_URL}${PEOPLE_URL.replace(':id', 1)}`;
 const OPTS = { crossDomain: true };
 
-const onResponse = function(luke) {
-    console.log(`Hola, soy ${luke.name}`)
+const onPeopleResponse = function(persona) {
+    console.log(`Hola, soy ${persona.name}`)
 };
 
 
-$.get(LUKE_URL, OPTS, onResponse);
+$.get(LUKE_URL, OPTS, onPeopleResponse);
 
