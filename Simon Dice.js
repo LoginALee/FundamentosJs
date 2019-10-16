@@ -3,7 +3,8 @@ const celeste = document.getElementById('celeste');
 const violeta = document.getElementById('violeta');
 const naranja = document.getElementById('naranja');
 const verde = document.getElementById('verde');
-const ULTIMO_NIVEL = 10;
+const ULTIMO_NIVEL = 1;
+
 
 class Juego{
     constructor(){
@@ -13,15 +14,25 @@ class Juego{
     }
 
     inicializar(){
+        this.inicializar = this.inicializar.bind(this);
         this.elegirColor = this.elegirColor.bind(this);
         this.siguienteNivel = this.siguienteNivel.bind(this);
-        btnEmpezar.classList.add('hide');
+        this.toggleBtnEmpezar();
         this.nivel = 1;
         this.colores = {
             celeste,
             violeta,
             naranja,
             verde
+        }
+    }
+
+    toggleBtnEmpezar(){
+        if(btnEmpezar.classList.contains('hide')){
+            btnEmpezar.classList.remove('hide');
+        }
+        else{
+            btnEmpezar.classList.add('hide');
         }
     }
 
@@ -79,16 +90,31 @@ class Juego{
 
     agregarEventosClick(){
         this.colores.celeste.addEventListener('click', this.elegirColor);
-        this.colores.verde.addEventListener('click', this.elegirColo);
+        this.colores.verde.addEventListener('click', this.elegirColor);
         this.colores.violeta.addEventListener('click', this.elegirColor);
         this.colores.naranja.addEventListener('click', this.elegirColor);
     }
 
     eliminarEventosClick(){
         this.colores.celeste.removeEventListener('click', this.elegirColor);
-        this.colores.verde.removeEventListener('click', this.elegirColo);
+        this.colores.verde.removeEventListener('click', this.elegirColor);
         this.colores.violeta.removeEventListener('click', this.elegirColor);
         this.colores.naranja.removeEventListener('click', this.elegirColor);
+    }
+
+    ganoElJuego(){
+        swal('Simon dice', 'Felicidades, Ganaste!', 'success')
+        .then(() => {
+            this.inicializar();
+        })
+    }
+
+    perdioElJuego(){
+        swal('Simon dice', 'Lo lamento, perdiste :( ', 'error')
+        .then(() => {
+            this.eliminarEventosClick();
+            this.inicializar();
+        })
     }
 
     elegirColor(ev){
@@ -101,7 +127,7 @@ class Juego{
                 this.nivel++;
                 this.eliminarEventosClick();
                 if(this.nivel === (ULTIMO_NIVEL + 1 )){
-                    //Ganó
+                    this.ganoElJuego();
                 }
                 else{
                     setTimeout(this.siguienteNivel, 1500);
@@ -110,7 +136,7 @@ class Juego{
             }
         }
         else{
-            //Perdió
+            this.perdioElJuego();
         }
     }
 }
